@@ -3,17 +3,23 @@ import sqlite3
 conn = sqlite3.connect("bonus.db")
 cursor = conn.cursor()
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS users (
-    user_id INTEGER PRIMARY KEY,
-    username TEXT,
-    bonus_points INTEGER DEFAULT 0
-)
-""")
-conn.commit()
+def init_db():
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        user_id INTEGER PRIMARY KEY,
+        username TEXT,
+        phone TEXT,
+        bonus_points INTEGER DEFAULT 0
+    )
+    """)
+    conn.commit()
 
 def add_user(user_id, username):
     cursor.execute("INSERT OR IGNORE INTO users (user_id, username) VALUES (?, ?)", (user_id, username))
+    conn.commit()
+
+def update_phone(user_id, phone):
+    cursor.execute("UPDATE users SET phone = ? WHERE user_id = ?", (phone, user_id))
     conn.commit()
 
 def get_balance(user_id):
@@ -28,3 +34,11 @@ def add_bonus(user_id, points):
 def use_bonus(user_id, points):
     cursor.execute("UPDATE users SET bonus_points = bonus_points - ? WHERE user_id = ?", (points, user_id))
     conn.commit()
+
+def get_all_users():
+    cursor.execute("SELECT user_id, username, phone FROM users")
+    return cursor.fetchall()
+
+def get_user_by_phone(phone):
+    cursor.execute("SELECT user_id FROM users WHERE phone = ?", (phone,))
+    return cursor.fetchone()
