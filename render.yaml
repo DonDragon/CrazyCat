@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: bonus-bot
+    env: python
+    buildCommand: ""
+    startCommand: ./start.sh
+    plan: free
+    branch: main
+    envVars:
+      - key: BOT_TOKEN
+        value: 7969626453:AAHL2-HV588nPbxI-METP0WbFKMI3966r2M
+      - key: ADMIN_IDS
+        value: 127588621

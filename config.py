@@ -1,2 +1,5 @@
-BOT_TOKEN = "7969626453:AAHL2-HV588nPbxI-METP0WbFKMI3966r2M"
-ADMIN_IDS = [127588621]  # Заменить на твой Telegram ID
+import os
+
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+ADMIN_IDS = [int(i) for i in os.environ.get("ADMIN_IDS", "").split(",") if i.strip().isdigit()]
+
