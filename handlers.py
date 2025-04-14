@@ -1,7 +1,7 @@
 from aiogram import types
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from config import ADMIN_IDS
 from database import add_user, get_balance, add_bonus, use_bonus
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 async def start_handler(message: types.Message):
     add_user(message.from_user.id, message.from_user.username)
@@ -16,7 +16,6 @@ async def start_handler(message: types.Message):
         "Добро пожаловать! Ваш бонусный счёт создан.\nВыберите действие:",
         reply_markup=keyboard
     )
-
 
 async def balance_handler(message: types.Message):
     balance = get_balance(message.from_user.id)

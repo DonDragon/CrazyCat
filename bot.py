@@ -25,10 +25,6 @@ async def handle_add_bonus(message: Message):
 async def handle_use_bonus(message: Message):
     await use_bonus_handler(message)
 
-if __name__ == "__main__":
-    from database import conn  # Ensure DB is initialized
-    executor.start_polling(dp)
-
 @dp.message_handler(lambda message: message.text == "💰 Мой баланс")
 async def handle_text_balance(message: Message):
     await balance_handler(message)
@@ -36,3 +32,7 @@ async def handle_text_balance(message: Message):
 @dp.message_handler(lambda message: message.text == "🎁 Использовать бонусы")
 async def handle_text_use_bonus(message: Message):
     await message.answer("Введите команду /use_bonus <кол-во>, чтобы использовать бонусы.")
+
+if __name__ == "__main__":
+    from database import conn  # Ensure DB is initialized
+    executor.start_polling(dp)
